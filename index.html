@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paperscreen — 一日中見る画面に、紙のやさしさを。</title>
+<meta name="description" content="Macの画面に薄い紙の質感を重ね、まぶしさや強すぎるコントラストをやわらげるメニューバー常駐アプリ。">
+<link rel="canonical" href="https://kishiyyyyy.github.io/paperscreen-lp/">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kishiyyyyy.github.io/paperscreen-lp/">
+<meta property="og:title" content="Paperscreen — 一日中見る画面に、紙のやさしさを。">
+<meta property="og:description" content="Macの画面に薄い紙の質感を重ね、まぶしさや強すぎるコントラストをやわらげます。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="is-off">
+
+<!-- 製品と同じ順序。地色 → ムラ → 紙目。paper.js が値を入れる -->
+<div class="ov ov-tint"></div>
+<div class="ov ov-mottle"></div>
+<div class="ov ov-grain"></div>
+
+<div class="menubar">
+  <div class="left">
+    <span class="brand">Paperscreen</span>
+  </div>
+  <div class="extras">
+    <span class="kbd">⌃⇧P</span>
+    <button class="status" id="barToggle" aria-live="polite">
+      <span class="glyph" aria-hidden="true"></span><span id="barLabel">オン</span>
+    </button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">macOS メニューバーアプリ</p>
+      <h1>一日中見る画面に、<br>紙のやさしさを。</h1>
+      <p class="lede">Macの画面に薄い紙の質感を重ね、まぶしさや強すぎるコントラストをやわらげます。</p>
+      <a class="cta" href="#download">Paperscreen について</a>
+      <p class="small cta-note">macOS 13 以降。買い切り。アカウント登録はありません。</p>
+    </div>
+
+    <div class="pop-col">
+      <div class="pop" role="group" aria-label="Paperscreen の設定">
+        <div class="pop-row">
+          <span class="pop-title">Paperscreen</span>
+          <span class="pop-key">⌃⇧P</span>
+          <button class="switch" id="mainSwitch" role="switch" aria-checked="true" aria-label="Paperscreen をオンにする"><i></i></button>
+        </div>
+        <hr class="pop-sep">
+        <p class="pop-label">紙面</p>
+        <ul class="surfaces" id="surfaceList" role="radiogroup" aria-label="紙面">
+          <li><button class="surf-btn" role="radio" aria-checked="true" data-surface="clear"><span class="check" aria-hidden="true">✓</span>Clear<span class="hint">日中</span></button></li>
+          <li><button class="surf-btn" role="radio" aria-checked="false" data-surface="warm"><span class="check" aria-hidden="true">✓</span>Warm<span class="hint">読み書き</span></button></li>
+          <li><button class="surf-btn" role="radio" aria-checked="false" data-surface="quiet"><span class="check" aria-hidden="true">✓</span>Quiet<span class="hint">夕方</span></button></li>
+        </ul>
+        <hr class="pop-sep">
+        <p class="pop-label">強度</p>
+        <div class="slider-row">
+          <input type="range" id="intensity" min="0" max="100" value="55" aria-label="強度">
+          <span class="val" id="intensityVal">55</span>
+        </div>
+        <button class="pop-item" id="resetBtn">デフォルトに戻す</button>
+        <hr class="pop-sep">
+        <!-- 既定はオフ。同意なき自動起動を禁じる審査ガイドライン 2.4.5(iii) のため
+             opt-in を維持すると決めている。チェック済みで描かないこと。 -->
+        <button class="pop-item" id="loginBtn">ログイン時に開く</button>
+        <hr class="pop-sep">
+        <span class="pop-item" aria-hidden="true">Paperscreenを終了</span>
+      </div>
+      <p class="small pop-note">このページ全体に、いま紙面が一枚かかっています。上のスイッチか ⌃⇧P で外せます。地色も紙目も製品と同じ数値を使っていて、初期値のまま（Clear・55）です。</p>
+    </div>
+  </div>
+
+  <div class="stage-wrap stage">
+    <div class="win">
+      <div class="win-bar"><b></b><b></b><b></b><span>読みもの.txt</span></div>
+      <div class="doc">
+        <p class="meta">白い背景、黒い文字。ふだん一日中見ている画面です。</p>
+        <h4>画面は、明るすぎることがある</h4>
+        <p>紙の上の文字は、光を反射して目に届きます。画面の文字は、光そのものが目に向かってきます。同じ文章を読んでいても、体の受け取り方は違います。夕方になって画面がまぶしく感じるのは、その差が積み重なった結果なのかもしれません。</p>
+        <p>明るさを下げれば、たしかにまぶしさは減ります。けれど暗い部屋でなければ、下げすぎた画面は今度は読みにくくなります。色温度を変えても、白は白のまま、黒と白の差は強いままです。多くの人が、そのあたりで調整をやめてしまいます。</p>
+        <p>ダークモードは、白の面積を減らす方法です。効く場面もありますが、暗い地に置かれた白い文字や鮮やかな色は、かえって強く感じることがあります。資料もWebも、結局は白い背景で開くことになります。</p>
+        <hr>
+        <p>Paperscreenは、画面の明るさにも色温度にも手を入れません。ごく薄い紙の面を一枚、画面の上に置くだけです。白のかたさが少しほどけて、文字の輪郭はそのまま残ります。</p>
+        <p>いま読んでいるこの白も、その一枚の下にあります。上のスイッチか、⌃⇧P で外してみてください。ふだんの白が、どれくらいの明るさだったかがわかります。</p>
+        <p class="sig">— この段落まで、読みつづけられましたか。</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">何をして、何をしないか</p>
+    <h2>画面を、暗くしません。</h2>
+    <p class="lede">まぶしさを抑える手段はすでにいくつかあります。Paperscreenはそのどれとも重なりません。担当が違います。</p>
+    <dl class="split">
+      <div>
+        <dt>画面の明るさ</dt>
+        <dd>ディスプレイのバックライトの担当です。Paperscreenは触りません。</dd>
+      </div>
+      <div>
+        <dt>色温度の時間変化</dt>
+        <dd>Night Shift の担当です。Paperscreenは時刻を見ません。併用できます。</dd>
+      </div>
+      <div class="mine">
+        <dt>コントラストと質感</dt>
+        <dd>ここだけがPaperscreenの担当です。黒がすこし持ち上がって明暗の差が詰まり、表面にごくわずかな粒が乗ります。</dd>
+      </div>
+    </dl>
+    <p class="small" style="margin-top:1.8em">白の明るさを下げるのは最大でも10%まで、と決めて作っています。画面全体を暗くする層は持ちません。暗くして楽になるなら、それは輝度を下げれば済む話だからです。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">なぜ紙なのか</p>
+    <h2>紙の本のように、穏やかな画面へ。</h2>
+    <p class="lede">紙の面には、発光する画面にはない細かな凹凸と、わずかな色のばらつきがあります。長く読んでいても平気なのは、そこに理由があるのかもしれません。</p>
+    <p class="lede" style="margin-top:1.6em">Paperscreenは、その特徴をごく弱く画面に重ねます。文字の読みやすさはそのままに、白のかたさとまぶしさだけをやわらげます。効果に気づかなくなったら、それがちょうどいい強さです。</p>
+
+    <ul class="pains">
+      <li>白い画面をまぶしく感じる</li>
+      <li>黒と白のコントラストが強すぎる</li>
+      <li>夕方になると、画面を見るのがつらくなる</li>
+      <li>ダークモードでも、白い文字や鮮やかな色を強く感じる</li>
+      <li>Night Shiftやブルーライトカットだけでは楽にならない</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">SURFACE</p>
+    <h2>選ぶのは、三つだけ。</h2>
+    <p class="lede">好みの見た目ではなく、目が楽に感じる見え方で選べるように、性格の違う三つに絞りました。ボタンに触れるとこのページ全体に仮に当たり、押すと切り替わります。製品のメニューと同じ操作です。</p>
+    <!-- 色見本は置かない。理由は style.css の surfaces の項に書いてある -->
+    <div class="cards">
+      <div class="card">
+        <div><span class="name">CLEAR</span><h3>色味を変えずに、質感だけ。</h3></div>
+        <p>ごく細かな粒子を加えるだけの標準の紙面です。色の変化を最小限に抑えるので、写真やデザインを扱う日中の作業にも向きます。</p>
+        <button class="try" data-try="clear" aria-pressed="true">この紙面を試す</button>
+      </div>
+      <div class="card">
+        <div><span class="name">WARM</span><h3>白のかたさを、ほどく。</h3></div>
+        <p>わずかに温かい地色を敷いて、白い背景のかたさをやわらげます。Web、Notion、メール、PDFなど、文字を長く読む時間に。</p>
+        <button class="try" data-try="warm" aria-pressed="false">この紙面を試す</button>
+      </div>
+      <div class="card">
+        <div><span class="name">QUIET</span><h3>明暗の差を、静かに。</h3></div>
+        <p>薄い灰色を基調に、明暗差と鮮やかさをより穏やかに感じさせます。夕方や、画面の刺激を強く感じるときに。</p>
+        <button class="try" data-try="quiet" aria-pressed="false">この紙面を試す</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">使い方</p>
+    <h2>設定は、最初の一分だけ。</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="num">一</span>
+        <h3>紙面を選ぶ</h3>
+        <p>Clear、Warm、Quietを同じ画面で見比べて、いちばん自然に見えるものを選びます。選んでもメニューは閉じないので、そのまま比べられます。</p>
+      </div>
+      <div class="step">
+        <span class="num">二</span>
+        <h3>強度を合わせる</h3>
+        <p>効果に気づかなくなる、その手前までスライダーを下げます。模様が見えている状態は強すぎます。</p>
+      </div>
+      <div class="step">
+        <span class="num">三</span>
+        <h3>オンのまま忘れる</h3>
+        <p>必要なら「ログイン時に開く」を入れておきます（初期状態はオフです）。気になったら ⌃⇧P で、いつでも元の画面に戻せます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">仕様</p>
+    <h2>小さく、静かに動きます。</h2>
+    <dl class="spec">
+      <div><dt>画面を見ません</dt><dd>Paperscreenは画面の内容を読み取りません。上に一枚重ねているだけで、何が表示されているかは関知しません。画面収録の権限も求めません。</dd></div>
+      <div><dt>ローカル処理</dt><dd>すべてMacの中で完結します。ネットワーク通信は行いません。送信するデータがありません。</dd></div>
+      <div><dt>アカウント不要</dt><dd>サインアップもログインもありません。入れたらすぐ使いはじめられます。</dd></div>
+      <div><dt>キャプチャに写りません</dt><dd>スクリーンショット、画面収録、Web会議の画面共有——ソフトウェア経由のキャプチャすべてから除外されます。自分の見え方の設定が、他人の会議や提出物に混ざりません。</dd></div>
+      <div><dt>動作の軽さ</dt><dd>静止中のCPU使用率はほぼゼロ。アニメーションもタイマーも持たず、紙面を変えたときだけ描き直します。メモリは画面の広さで決まり、ベース約50MBに各ディスプレイの実ピクセル数×4バイトが加わります（Retinaと4Kの二枚で約103MB）。</dd></div>
+      <div><dt>操作を邪魔しない</dt><dd>クリック、スクロール、キー入力はそのまま下の画面に届きます。フォーカスも奪いません。</dd></div>
+      <div><dt>複数ディスプレイ</dt><dd>接続中のすべての画面に表示します。ディスプレイを抜き差ししたあとも復帰します。</dd></div>
+      <div><dt>いつでも戻せる</dt><dd>⌃⇧P で即座にオフ。アプリを終了すれば、効果は画面に残りません。</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="closing" id="download">
+  <div class="wrap">
+    <h2>画面を、すこし静かに。</h2>
+    <p class="lede">まずは一日、オンにしたまま使ってみてください。<br>合わなければ ⌃⇧P で、すぐ元の画面に戻せます。</p>
+    <!-- TODO: App Store の URL が出たら、この段落をボタンに差し替える -->
+    <p class="small">Mac App Store で公開予定です。macOS 13 以降。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <span class="small" style="font-weight:500;letter-spacing:.12em;color:var(--sumi)">Paperscreen</span>
+    <p class="small">Paperscreenは医療機器ではありません。目の症状の治療や予防を目的としたものではなく、画面の見え方を穏やかにするためのユーティリティです。</p>
+    <span class="small foot-links">
+      <a href="https://kishiyyyyy.github.io/paperscreen-support/privacy/">プライバシーポリシー</a>
+      <a href="https://kishiyyyyy.github.io/paperscreen-support/">サポート</a>
+    </span>
+    <span class="small">© 2026</span>
+  </div>
+</footer>
+
+<script type="module">
+import { SURFACES, DEFAULTS, textures, layers } from './paper.js';
+
+const root = document.documentElement;
+const body = document.body;
+const mainSwitch = document.getElementById('mainSwitch');
+const barToggle  = document.getElementById('barToggle');
+const barLabel   = document.getElementById('barLabel');
+const slider     = document.getElementById('intensity');
+const val        = document.getElementById('intensityVal');
+const resetBtn   = document.getElementById('resetBtn');
+const surfBtns   = [...document.querySelectorAll('.surf-btn')];
+const tryBtns    = [...document.querySelectorAll('.try')];
+
+const state = { on: true, surface: DEFAULTS.surface, intensity: DEFAULTS.intensity };
+
+// 製品のメニューは行に触れているあいだだけ実画面に仮適用し、離すと戻す。
+// 紙面選びは命令ではなく比較なので、ここでも同じ振る舞いにしてある。
+let preview = null;
+
+function paint() {
+  const name = preview ?? state.surface;
+  const l = layers(name, state.intensity);
+  const t = textures(name);
+
+  root.style.setProperty('--tint-color', l.tintColor);
+  root.style.setProperty('--tint-a', l.tintAlpha.toFixed(4));
+  root.style.setProperty('--mottle-a', l.mottleAlpha.toFixed(4));
+  root.style.setProperty('--grain-a', l.grainAlpha.toFixed(4));
+  root.style.setProperty('--mottle-src', `url("${t.mottle}")`);
+  root.style.setProperty('--grain-src', `url("${t.grain}")`);
+
+  body.classList.toggle('is-off', !state.on);
+  mainSwitch.setAttribute('aria-checked', String(state.on));
+  mainSwitch.setAttribute('aria-label', state.on ? 'Paperscreen をオフにする' : 'Paperscreen をオンにする');
+  barLabel.textContent = state.on ? 'オン' : 'オフ';
+
+  surfBtns.forEach(b => b.setAttribute('aria-checked', String(b.dataset.surface === state.surface)));
+  tryBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.try === state.surface)));
+  val.textContent = state.intensity;
+  if (slider.value !== String(state.intensity)) slider.value = state.intensity;
+}
+
+function toggle() { state.on = !state.on; paint(); }
+
+function pick(name) { state.surface = name; state.on = true; preview = null; paint(); }
+
+function hover(name) { if (!state.on) return; preview = name; paint(); }
+function unhover() { if (preview === null) return; preview = null; paint(); }
+
+mainSwitch.addEventListener('click', toggle);
+barToggle.addEventListener('click', toggle);
+
+slider.addEventListener('input', () => {
+  state.intensity = parseInt(slider.value, 10);
+  state.on = true;
+  paint();
+});
+
+resetBtn.addEventListener('click', () => {
+  state.surface = DEFAULTS.surface;
+  state.intensity = DEFAULTS.intensity;
+  state.on = true;
+  preview = null;
+  paint();
+});
+
+for (const b of [...surfBtns, ...tryBtns]) {
+  const name = b.dataset.surface ?? b.dataset.try;
+  b.addEventListener('click', () => pick(name));
+  b.addEventListener('mouseenter', () => hover(name));
+  b.addEventListener('mouseleave', unhover);
+  b.addEventListener('focus', () => hover(name));
+  b.addEventListener('blur', unhover);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.shiftKey && (e.key === 'P' || e.key === 'p')) { e.preventDefault(); toggle(); }
+});
+
+// 紙目の生成は 1 紙面あたり 0.2 秒ほどかかる。本文を待たせないよう既定の紙面だけを
+// 先に用意し、残りの二つは手が空いてから作る。触られた時点で作ると、比較のための
+// ホバーが一拍遅れて、比べるという操作そのものが壊れる。
+requestAnimationFrame(() => {
+  paint();
+  const rest = Object.keys(SURFACES).filter(n => n !== state.surface);
+  const warm = () => rest.forEach(textures);
+  if (window.requestIdleCallback) requestIdleCallback(warm, { timeout: 2000 });
+  else setTimeout(warm, 400);
+});
+</script>
+</body>
+</html>
