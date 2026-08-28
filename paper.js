@@ -1,6 +1,6 @@
-// Paperscreen の紙面を、ブラウザで製品と同じ手順で組み立てる。
+// Paperstyle の紙面を、ブラウザで製品と同じ手順で組み立てる。
 //
-// 数値も手順も移植で、出どころは非公開リポジトリ kishiyyyyy/PaperScreen の
+// 数値も手順も移植で、出どころは非公開リポジトリ kishiyyyyy/Paperstyle の
 // Sources/PaperSurface.swift（definition(for:) と PaperTextures、NoiseField、
 // SplitMix64）と Tools/MakeStoreShot.swift の drawPaper。乱数の種まで同じなので、
 // 出てくる紙目は製品のものと同じ模様になる。

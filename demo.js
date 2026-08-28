@@ -7,8 +7,8 @@ import { SURFACES, DEFAULTS, textures, layers } from './paper.js';
 // status.on / status.off にあたるものだけがここに要る。
 const JA = document.documentElement.lang.startsWith('ja');
 const L = JA
-  ? { on: 'オン', off: 'オフ', turnOn: 'Paperscreenをオンにする', turnOff: 'Paperscreenをオフにする' }
-  : { on: 'On',   off: 'Off',  turnOn: 'Turn Paperscreen on',     turnOff: 'Turn Paperscreen off' };
+  ? { on: 'オン', off: 'オフ', turnOn: 'Paperstyleをオンにする', turnOff: 'Paperstyleをオフにする' }
+  : { on: 'On',   off: 'Off',  turnOn: 'Turn Paperstyle on',     turnOff: 'Turn Paperstyle off' };
 
 const root = document.documentElement;
 const body = document.body;

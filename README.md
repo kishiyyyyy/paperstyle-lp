@@ -1,11 +1,11 @@
-# paperscreen-lp
+# paperstyle-lp
 
-Paperscreen の紹介ページ。GitHub Pages で配信する。
+Paperstyle の紹介ページ。GitHub Pages で配信する。
 
-- <https://kishiyyyyy.github.io/paperscreen-lp/>
+- <https://kishiyyyyy.github.io/paperstyle-lp/>
 
-アプリ本体は非公開リポジトリ `kishiyyyyy/PaperScreen`。プライバシーポリシーと
-サポートページは `kishiyyyyy/paperscreen-support` にあり、こことは別に置いてある。
+アプリ本体は非公開リポジトリ `kishiyyyyy/Paperstyle`。プライバシーポリシーと
+サポートページは `kishiyyyyy/paperstyle-support` にあり、こことは別に置いてある。
 理由は本体リポジトリの `docs/decisions.md`（このLPのビルドが壊れてもサポートURLが
 404にならないようにするため。審査で落ちる）。
 
@@ -18,7 +18,7 @@ Paperscreen の紹介ページ。GitHub Pages で配信する。
 | `style.css` | 見た目。英語版は `html[lang="en"]` で欧文向けに上書きする |
 | `demo.js` | デモの操作。日英で共有する |
 | `paper.js` | 紙面の生成。製品からの移植 |
-| `icon.svg` | ファビコン。`paperscreen-support` と同じもの |
+| `icon.svg` | ファビコン。`paperstyle-support` と同じもの |
 
 ビルドは無い。素のHTMLをそのまま配信する。
 
@@ -46,10 +46,10 @@ Hiragino がほぼ確実に当たる。
 2.4.5(iii) のため）があった。数字と既定値は本体の `README.md` と
 `docs/decisions.md` が正。
 
-表記は `Paperscreen`。大文字は先頭のPだけ。`PaperScreen` と書かない。
+表記は `Paperstyle`。大文字は先頭のPだけ。`PaperStyle` と書かない。
 `Clear` / `Warm` / `Quiet` も訳さない。紙面の名前は製品の識別子で、Night Shift が
 訳されないのと同じ扱い。メニューの語（`Surface`、`Intensity`、`Reset to Default`、
-`Open at Login`、`Quit Paperscreen`、`Daytime` / `Reading` / `Evening`）は製品の
+`Open at Login`、`Quit Paperstyle`、`Daytime` / `Reading` / `Evening`）は製品の
 `Resources/{en,ja}.lproj/Localizable.strings` が正。
 
 **「眼精疲労」「eye strain」を使わない。** 症状を指す語（まぶしさ、glare）は使う。
