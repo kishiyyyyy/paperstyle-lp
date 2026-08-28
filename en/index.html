@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paperscreen — The screen you read all day, softened by paper.</title>
+<meta name="description" content="A menu bar app that lays a thin paper surface over your Mac's display, easing glare and contrast that feels too strong.">
+<link rel="canonical" href="https://kishiyyyyy.github.io/paperscreen-lp/en/">
+<link rel="alternate" hreflang="ja" href="https://kishiyyyyy.github.io/paperscreen-lp/">
+<link rel="alternate" hreflang="en" href="https://kishiyyyyy.github.io/paperscreen-lp/en/">
+<link rel="alternate" hreflang="x-default" href="https://kishiyyyyy.github.io/paperscreen-lp/">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kishiyyyyy.github.io/paperscreen-lp/en/">
+<meta property="og:title" content="Paperscreen — The screen you read all day, softened by paper.">
+<meta property="og:description" content="Paperscreen lays a thin paper surface over your Mac's display, easing glare and contrast that feels too strong.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body class="is-off">
+
+<!-- Same order as the app: tint, then mottle, then grain. paper.js fills these in -->
+<div class="ov ov-tint"></div>
+<div class="ov ov-mottle"></div>
+<div class="ov ov-grain"></div>
+
+<div class="menubar">
+  <div class="left">
+    <span class="brand">Paperscreen</span>
+    <a class="lang" href="../" hreflang="ja" lang="ja">日本語</a>
+  </div>
+  <div class="extras">
+    <span class="kbd">⌃⇧P</span>
+    <button class="status" id="barToggle" aria-live="polite">
+      <span class="glyph" aria-hidden="true"></span><span id="barLabel">On</span>
+    </button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">macOS menu bar app</p>
+      <h1>The screen you read<br>all day, softened.</h1>
+      <p class="lede">Paperscreen lays a thin paper surface over your Mac's display, easing glare and contrast that feels too strong.</p>
+      <a class="cta" href="#download">About Paperscreen</a>
+      <p class="small cta-note">macOS 13 or later. One-time purchase. No account.</p>
+    </div>
+
+    <div class="pop-col">
+      <div class="pop" role="group" aria-label="Paperscreen settings">
+        <div class="pop-row">
+          <span class="pop-title">Paperscreen</span>
+          <span class="pop-key">⌃⇧P</span>
+          <button class="switch" id="mainSwitch" role="switch" aria-checked="true" aria-label="Turn Paperscreen off"><i></i></button>
+        </div>
+        <hr class="pop-sep">
+        <p class="pop-label">Surface</p>
+        <ul class="surfaces" id="surfaceList" role="radiogroup" aria-label="Surface">
+          <li><button class="surf-btn" role="radio" aria-checked="true" data-surface="clear"><span class="check" aria-hidden="true">✓</span>Clear<span class="hint">Daytime</span></button></li>
+          <li><button class="surf-btn" role="radio" aria-checked="false" data-surface="warm"><span class="check" aria-hidden="true">✓</span>Warm<span class="hint">Reading</span></button></li>
+          <li><button class="surf-btn" role="radio" aria-checked="false" data-surface="quiet"><span class="check" aria-hidden="true">✓</span>Quiet<span class="hint">Evening</span></button></li>
+        </ul>
+        <hr class="pop-sep">
+        <p class="pop-label">Intensity</p>
+        <div class="slider-row">
+          <input type="range" id="intensity" min="0" max="100" value="55" aria-label="Intensity">
+          <span class="val" id="intensityVal">55</span>
+        </div>
+        <button class="pop-item" id="resetBtn">Reset to Default</button>
+        <hr class="pop-sep">
+        <!-- Off by default. Guideline 2.4.5(iii) forbids launching without consent,
+             so this stays opt-in. Never draw it as already checked. -->
+        <button class="pop-item" id="loginBtn">Open at Login</button>
+        <hr class="pop-sep">
+        <span class="pop-item" aria-hidden="true">Quit Paperscreen</span>
+      </div>
+      <p class="small pop-note">A sheet of paper is lying over this whole page right now. Take it off with the switch above, or with ⌃⇧P. The tint and the grain use the same numbers as the app, at its defaults (Clear, 55).</p>
+    </div>
+  </div>
+
+  <div class="stage-wrap stage">
+    <div class="win">
+      <div class="win-bar"><b></b><b></b><b></b><span>reading.txt</span></div>
+      <div class="doc">
+        <p class="meta">White background, black text. The screen you look at all day.</p>
+        <h4>Screens can be too bright</h4>
+        <p>Text on paper reaches your eyes as reflected light. Text on a screen is light coming straight at you. You may be reading the same words, but your body receives them differently. When a screen starts to feel glaring towards the end of the day, that difference may be part of why.</p>
+        <p>Turning the brightness down does reduce glare. But unless the room is dark, a screen turned down too far only becomes hard to read. Changing the colour temperature leaves white as white, and the gap between black and white as wide as it was. Most people stop adjusting somewhere around there.</p>
+        <p>Dark mode is a way to put less white on screen. It helps in places, but white text and saturated colour on a dark ground can feel stronger rather than weaker. Documents and the web still open on a white page.</p>
+        <hr>
+        <p>Paperscreen touches neither brightness nor colour temperature. It lays one very thin paper surface over the screen. The hardness of white loosens a little, and the edges of the letters stay exactly where they were.</p>
+        <p>The white you are reading right now is under that sheet. Take it off with the switch above, or with ⌃⇧P, and you can see how bright your ordinary white had been.</p>
+        <p class="sig">— Did you read this far without looking away?</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">what it does, and doesn't</p>
+    <h2>It does not dim your screen.</h2>
+    <p class="lede">There are already several ways to cut glare. Paperscreen overlaps with none of them. It has a different job.</p>
+    <dl class="split">
+      <div>
+        <dt>Brightness</dt>
+        <dd>Your display's backlight handles this. Paperscreen does not touch it.</dd>
+      </div>
+      <div>
+        <dt>Colour over the day</dt>
+        <dd>Night Shift handles this. Paperscreen never looks at the clock. Run both.</dd>
+      </div>
+      <div class="mine">
+        <dt>Contrast and texture</dt>
+        <dd>This is the only part Paperscreen handles. Blacks lift a little, the distance between light and dark closes, and a very faint grain sits on the surface.</dd>
+      </div>
+    </dl>
+    <p class="small" style="margin-top:1.8em">White may lose at most 10% of its brightness — that is a rule the app is built to, and tested against. There is no layer that dims the whole screen. If dimming were the answer, turning the brightness down would already be enough.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">why paper</p>
+    <h2>As calm as a printed page.</h2>
+    <p class="lede">A paper surface has fine unevenness, and slight variation in its colour, that an emissive screen does not. That may be part of why it stays comfortable to read for hours.</p>
+    <p class="lede" style="margin-top:1.6em">Paperscreen lays those qualities over the screen, very faintly. Legibility stays where it was; only the hardness of white and the glare are eased. When you stop noticing the effect, that is the right strength.</p>
+
+    <ul class="pains">
+      <li>White screens feel glaring</li>
+      <li>The contrast between black and white is too strong</li>
+      <li>Looking at the screen gets harder as the day goes on</li>
+      <li>Even in dark mode, white text and saturated colour feel strong</li>
+      <li>Night Shift and blue light filters alone do not help</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">SURFACE</p>
+    <h2>Only three to choose from.</h2>
+    <p class="lede">Chosen by which is easiest to look at rather than by taste, so there are three with distinct characters and no more. Hover a button to try it on this whole page; click to keep it. The app's menu works the same way.</p>
+    <!-- No colour swatches. The reason is in the surfaces section of style.css -->
+    <div class="cards">
+      <div class="card">
+        <div><span class="name">CLEAR</span><h3>Texture only, colour untouched.</h3></div>
+        <p>The standard surface: fine grain and almost nothing else. It keeps colour shift to a minimum, so it suits daytime work with photographs and design.</p>
+        <button class="try" data-try="clear" aria-pressed="true">Try this surface</button>
+      </div>
+      <div class="card">
+        <div><span class="name">WARM</span><h3>Loosens the hardness of white.</h3></div>
+        <p>A faintly warm ground beneath the page, easing the hardness of white backgrounds. For the hours you spend reading — the web, Notion, mail, PDFs.</p>
+        <button class="try" data-try="warm" aria-pressed="false">Try this surface</button>
+      </div>
+      <div class="card">
+        <div><span class="name">QUIET</span><h3>Quiets the distance between light and dark.</h3></div>
+        <p>Built on a pale grey, making contrast and saturation feel gentler. For the evening, or whenever the screen feels like too much.</p>
+        <button class="try" data-try="quiet" aria-pressed="false">Try this surface</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">how to use it</p>
+    <h2>One minute of setup.</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>Choose a surface</h3>
+        <p>Compare Clear, Warm and Quiet on the same screen and take whichever looks most natural. The menu stays open while you choose, so you can keep going back and forth.</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>Set the intensity</h3>
+        <p>Bring the slider down to just before the point where you stop noticing the effect. If you can see a pattern, it is too strong.</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>Leave it on and forget it</h3>
+        <p>Turn on Open at Login if you want it — it starts out off. Press ⌃⇧P at any time to get your ordinary screen back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">specifics</p>
+    <h2>Small, and quiet.</h2>
+    <dl class="spec">
+      <div><dt>It doesn't read your screen</dt><dd>Paperscreen never looks at what is on the display. It lays one sheet on top and has no idea what is underneath. It does not ask for screen recording permission.</dd></div>
+      <div><dt>Local only</dt><dd>Everything happens on your Mac. Paperscreen makes no network connections. There is nothing for it to send.</dd></div>
+      <div><dt>No account</dt><dd>No sign-up and no login. Install it and start.</dd></div>
+      <div><dt>Invisible to captures</dt><dd>Screenshots, screen recordings, screen sharing on a video call — Paperscreen is excluded from every software capture path. How you have set your own screen to look stays out of other people's meetings and files.</dd></div>
+      <div><dt>Light to run</dt><dd>CPU use is essentially zero while nothing is moving. There are no animations and no timers; it redraws only when you change the surface. Memory scales with screen area: roughly 50 MB plus four bytes per physical pixel per display (about 103 MB for a Retina and a 4K together).</dd></div>
+      <div><dt>It stays out of the way</dt><dd>Clicks, scrolling and keystrokes pass straight through to whatever is underneath. It never takes focus.</dd></div>
+      <div><dt>Multiple displays</dt><dd>It covers every connected display, and comes back after you unplug and replug one.</dd></div>
+      <div><dt>Reversible at any moment</dt><dd>⌃⇧P turns it off instantly. Quit the app and nothing is left on the screen.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="closing" id="download">
+  <div class="wrap">
+    <h2>A quieter screen.</h2>
+    <p class="lede">Try leaving it on for a day.<br>If it doesn't suit you, ⌃⇧P puts your ordinary screen back.</p>
+    <!-- TODO: replace this paragraph with a button once the App Store URL exists -->
+    <p class="small">Coming to the Mac App Store. macOS 13 or later.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <span class="small" style="font-weight:500;letter-spacing:.12em;color:var(--sumi)">Paperscreen</span>
+    <p class="small">Paperscreen is not a medical device. It is not intended to treat or prevent any eye condition; it is a utility for making the screen gentler to look at.</p>
+    <span class="small foot-links">
+      <a href="https://kishiyyyyy.github.io/paperscreen-support/privacy/">Privacy Policy</a>
+      <a href="https://kishiyyyyy.github.io/paperscreen-support/">Support</a>
+    </span>
+    <span class="small">© 2026</span>
+  </div>
+</footer>
+
+<script type="module" src="../demo.js"></script>
+</body>
+</html>

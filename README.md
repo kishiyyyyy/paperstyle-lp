@@ -13,8 +13,10 @@ Paperscreen の紹介ページ。GitHub Pages で配信する。
 
 | ファイル | 中身 |
 | --- | --- |
-| `index.html` | 本文とデモの操作 |
-| `style.css` | 見た目 |
+| `index.html` | 日本語版の本文 |
+| `en/index.html` | 英語版の本文 |
+| `style.css` | 見た目。英語版は `html[lang="en"]` で欧文向けに上書きする |
+| `demo.js` | デモの操作。日英で共有する |
 | `paper.js` | 紙面の生成。製品からの移植 |
 | `icon.svg` | ファビコン。`paperscreen-support` と同じもの |
 
@@ -45,9 +47,15 @@ Hiragino がほぼ確実に当たる。
 `docs/decisions.md` が正。
 
 表記は `Paperscreen`。大文字は先頭のPだけ。`PaperScreen` と書かない。
+`Clear` / `Warm` / `Quiet` も訳さない。紙面の名前は製品の識別子で、Night Shift が
+訳されないのと同じ扱い。メニューの語（`Surface`、`Intensity`、`Reset to Default`、
+`Open at Login`、`Quit Paperscreen`、`Daytime` / `Reading` / `Evening`）は製品の
+`Resources/{en,ja}.lproj/Localizable.strings` が正。
+
+**「眼精疲労」「eye strain」を使わない。** 症状を指す語（まぶしさ、glare）は使う。
+医療効果をうたう表現も使わない。
 
 ## 残っていること
 
 - [ ] App Store の URL が出たら、closing セクションの段落をボタンに差し替える
-- [ ] 英語版（`en/`）。いまは日本語のみ
 - [ ] OG画像。`./build.sh shot` で素の画面写真に紙面を合成して作る

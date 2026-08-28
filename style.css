@@ -258,6 +258,21 @@ footer{border-top:1px solid var(--rule-soft);padding-block:44px 64px}
 .foot-links a{color:var(--hai);text-decoration:none}
 .foot-links a:hover{color:var(--sumi)}
 
+/* ---------- 英語版 ----------
+   Hiragino Mincho の欧文は本文向きではないので、macOS に載っているラテン系の
+   セリフを先に置く。字間も和文用の値だと欧文では空きすぎる。 */
+html[lang="en"]{
+  --mincho:"Iowan Old Style",Palatino,"Palatino Linotype","Times New Roman",serif;
+  --gothic:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+html[lang="en"] body{letter-spacing:0;line-height:1.75}
+html[lang="en"] h1{letter-spacing:-.005em;line-height:1.18;text-indent:0}
+html[lang="en"] h2{letter-spacing:0;line-height:1.28}
+html[lang="en"] h3{letter-spacing:0;line-height:1.5}
+html[lang="en"] .doc h4{letter-spacing:0;line-height:1.35}
+html[lang="en"] .doc p{line-height:1.95}
+html[lang="en"] .step .num{font-variant-numeric:lining-nums}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition-duration:.01ms !important;animation-duration:.01ms !important}
