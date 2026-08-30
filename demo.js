@@ -48,6 +48,8 @@ function paint() {
   tryBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.try === state.surface)));
   val.textContent = state.intensity;
   if (slider.value !== String(state.intensity)) slider.value = state.intensity;
+  // 溝の塗り分け。CSSだけでは現在値を取れないので、ここから割合を渡す
+  slider.style.setProperty('--fill', `${state.intensity}%`);
 }
 
 function toggle() { state.on = !state.on; paint(); }

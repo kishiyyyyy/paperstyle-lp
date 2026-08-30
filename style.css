@@ -8,6 +8,20 @@
   --rule-soft:   rgba(231,227,219,.09);
   --white:       #FFFFFF;
 
+  /* メニューの中だけは紙の暖色を使わず、macOSの色をそのまま置く。ここを地の色に
+     寄せると、製品では起きない見た目になる。値は darkAqua で実測したもので、
+     製品が使っている semantic color と一対一に対応させてある。
+     地色と枠だけは暖色のまま: メニューは背後の壁紙を拾うので、暖かい机の上では
+     実際に暖かく見える。 */
+  --menu-text:      rgba(255,255,255,.847); /* labelColor */
+  --menu-text-2:    rgba(255,255,255,.549); /* secondaryLabelColor */
+  --menu-text-3:    rgba(255,255,255,.247); /* tertiaryLabelColor */
+  --menu-on-hl:     #FFFFFF;                /* selectedMenuItemTextColor */
+  --menu-hl:        #0059D1;                /* selectedContentBackgroundColor */
+  --menu-accent:    #007AFF;                /* controlAccentColor の既定値。
+                                               製品では利用者のシステム設定に従う */
+  --menu-track:     rgba(255,255,255,.22);  /* スイッチのオフとスライダーの溝 */
+
   /* Google Fonts は読み込まない。訪問者のIPを第三者に渡さないという方針が
      製品の中身と揃っている必要があるのと、Mac専用アプリのLPなので
      Hiragino がほぼ確実に当たり、Noto が効く場面がほとんどないため。 */
@@ -119,6 +133,7 @@ body.is-off .glyph{opacity:.35}
   border:1px solid rgba(231,227,219,.13);border-radius:11px;
   box-shadow:0 1px 1px rgba(0,0,0,.3),0 18px 50px rgba(0,0,0,.5);
   padding:12px 0 8px;font-size:.8rem;line-height:1.7;letter-spacing:.02em;
+  color:var(--menu-text);
 }
 .pop::before{
   content:"";position:absolute;top:-7px;right:24px;width:12px;height:12px;
@@ -128,45 +143,62 @@ body.is-off .glyph{opacity:.35}
 }
 .pop-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 14px}
 .pop-title{font-weight:500;letter-spacing:.04em}
-.pop-key{color:var(--hai);font-size:.76rem;margin-left:auto;margin-right:4px}
-.pop-sep{border:0;border-top:1px solid var(--rule-soft);margin:9px 0}
-.pop-label{padding:2px 14px;font-size:.7rem;letter-spacing:.02em;color:var(--hai);font-weight:500}
+.pop-key{color:var(--menu-text-3);font-size:.76rem;margin-left:auto;margin-right:4px}
+.pop-sep{border:0;border-top:1px solid rgba(255,255,255,.09);margin:9px 0}
+.pop-label{padding:2px 14px;font-size:.7rem;letter-spacing:.02em;color:var(--menu-text-2);font-weight:500}
+/* ハイライトはAppKitが描くものと同じ形。行の左右を5px空けて角丸4pxで、
+   端まで届く四角ではない。文字の位置を動かさないよう、空けた分だけ padding を引く */
 .pop-item{
-  width:100%;display:block;border:0;background:none;font:inherit;color:var(--sumi);
-  padding:4px 14px;cursor:pointer;text-align:left;letter-spacing:.03em;
+  width:calc(100% - 10px);display:block;border:0;background:none;font:inherit;color:inherit;
+  margin-inline:5px;padding:4px 9px;border-radius:4px;
+  cursor:pointer;text-align:left;letter-spacing:.03em;
 }
-.pop-item:hover{background:rgba(231,227,219,.07)}
+/* 標準項目のハイライトはシステムが描くもので、製品側から色を変える手段がない。
+   ここを淡い白にすると、製品では存在しない見た目になる */
+.pop-item:hover{background:var(--menu-hl);color:var(--menu-on-hl)}
 
 .switch{position:relative;width:38px;height:22px;flex:none;border:0;padding:0;background:none;cursor:pointer}
-.switch i{position:absolute;inset:0;border-radius:11px;background:rgba(231,227,219,.22);transition:background .25s ease}
+.switch i{position:absolute;inset:0;border-radius:11px;background:var(--menu-track);transition:background .25s ease}
+/* つまみは NSSwitch と同じで、オンでもオフでも白 */
 .switch i::after{
   content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;
-  background:#1A1917;box-shadow:0 1px 3px rgba(0,0,0,.4);transition:transform .25s ease;
+  background:var(--white);box-shadow:0 1px 3px rgba(0,0,0,.4);transition:transform .25s ease;
 }
-.switch[aria-checked="true"] i{background:var(--sumi)}
+.switch[aria-checked="true"] i{background:var(--menu-accent)}
 .switch[aria-checked="true"] i::after{transform:translateX(16px)}
 
 .surfaces{list-style:none}
 .surf-btn{
-  width:100%;display:flex;align-items:center;gap:9px;border:0;background:none;font:inherit;
-  color:var(--sumi);padding:5px 14px;cursor:pointer;text-align:left;letter-spacing:.05em;
+  width:calc(100% - 10px);display:flex;align-items:center;gap:9px;border:0;background:none;font:inherit;
+  color:inherit;margin-inline:5px;padding:5px 9px;border-radius:4px;
+  cursor:pointer;text-align:left;letter-spacing:.05em;
 }
-.surf-btn:hover{background:rgba(231,227,219,.07)}
+/* 塗りつぶしたアクセント色の上なので、文字はアルファを下げた白ではなく
+   macOSがその上で使う白そのものになる */
+.surf-btn:hover{background:var(--menu-hl);color:var(--menu-on-hl)}
+.surf-btn:hover .hint{color:var(--menu-on-hl)}
 .check{width:7px;flex:none;opacity:0;font-size:.7rem}
 .surf-btn[aria-checked="true"] .check{opacity:1}
 .surf-btn[aria-checked="true"]{font-weight:500}
-.hint{margin-left:auto;color:var(--hai);font-size:.72rem;letter-spacing:.02em}
+.hint{margin-left:auto;color:var(--menu-text-2);font-size:.72rem;letter-spacing:.02em}
 
 .slider-row{padding:6px 14px 4px;display:flex;align-items:center;gap:10px}
+/* NSSlider はつまみまでをアクセント色で塗る。その塗りの伸び方が現在値の表示
+   そのものなので、溝を一色にすると値が読めなくなる。--fill は demo.js が入れる */
 input[type=range]{-webkit-appearance:none;appearance:none;background:none;flex:1;height:18px;cursor:pointer}
-input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:rgba(231,227,219,.22)}
+input[type=range]::-webkit-slider-runnable-track{
+  height:3px;border-radius:2px;
+  background:linear-gradient(to right,
+    var(--menu-accent) 0 var(--fill,55%), var(--menu-track) var(--fill,55%) 100%);
+}
 input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#E7E3DB;
+  -webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--white);
   border:1px solid rgba(0,0,0,.35);box-shadow:0 1px 3px rgba(0,0,0,.35);margin-top:-5.5px;
 }
-input[type=range]::-moz-range-track{height:3px;border-radius:2px;background:rgba(231,227,219,.22)}
-input[type=range]::-moz-range-thumb{width:14px;height:14px;border:1px solid rgba(0,0,0,.35);border-radius:50%;background:#E7E3DB}
-.val{font-size:.7rem;color:var(--hai);width:2em;text-align:right;font-variant-numeric:tabular-nums}
+input[type=range]::-moz-range-track{height:3px;border-radius:2px;background:var(--menu-track)}
+input[type=range]::-moz-range-progress{height:3px;border-radius:2px;background:var(--menu-accent)}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border:1px solid rgba(0,0,0,.35);border-radius:50%;background:var(--white)}
+.val{font-size:.7rem;color:var(--menu-text-2);width:2em;text-align:right;font-variant-numeric:tabular-nums}
 .pop-note{margin-top:14px;padding-left:2px}
 
 /* ---------- document window（机の上の画面） ---------- */
